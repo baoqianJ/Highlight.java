@@ -6,17 +6,22 @@ package com.codewaves.codehighlight.core;
  */
 
 public class Keyword {
-   protected String value;
+   protected String[] valueArray;
    protected String className;
    protected int relevance;
 
    public Keyword(String className, String value) {
-      this.value = value;
+      this.valueArray = value.split(" ");
       this.className = className;
    }
 
+   public Keyword(String className, String[] valueArray) {
+       this.valueArray = valueArray;
+       this.className = className;
+    }
+
    public Keyword(String value, String className, int relevance) {
-      this.value = value;
+       this.valueArray = value.split(" ");
       this.className = className;
       this.relevance = relevance;
    }

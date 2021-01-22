@@ -28,12 +28,14 @@ public class Highlighter {
       registerLanguage("css", languages, new CssLanguage().build());
       registerLanguage("diff", languages, new DiffLanguage().build());
       registerLanguage("groovy", languages, new GroovyLanguage().build());
+      registerLanguage("go", languages, new GoLanguage().build());
       registerLanguage("http", languages, new HttpLanguage().build());
       registerLanguage("ini", languages, new IniLanguage().build());
       registerLanguage("java", languages, new JavaLanguage().build());
       registerLanguage("javascript", languages, new JsLanguage().build());
       registerLanguage("json", languages, new JsonLanguage().build());
       registerLanguage("makefile", languages, new MakefileLanguage().build());
+      registerLanguage("markdown", languages, new MarkdownLanguage().build());
       registerLanguage("objectivec", languages, new ObjCLanguage().build());
       registerLanguage("perl", languages, new PerlLanguage().build());
       registerLanguage("php", languages, new PhpLanguage().build());
@@ -41,11 +43,13 @@ public class Highlighter {
       registerLanguage("ruby", languages, new RubyLanguage().build());
       registerLanguage("scala", languages, new ScalaLanguage().build());
       registerLanguage("shell", languages, new ShellLanguage().build());
+      registerLanguage("sql", languages, new SqlLanguage().build());
       registerLanguage("xml", languages, new XmlLanguage().build());
       registerLanguage("yaml", languages, new YamlLanguage().build());
       mLanguageMap = languages;
-      mLanguages = new String[] { "apache", "bash", "cpp", "cs", "css", "diff", "groovy", "http", "ini", "java",
-            "javascript", "json", "makefile", "objectivec", "perl", "php", "python", "ruby", "scala", "shell", "xml", "yaml" };
+      mLanguages = new String[] { "apache", "bash", "cpp", "cs", "css", "diff", "go", "groovy", "http", "ini", "java",
+              "javascript", "json", "makefile", "markdown", "objectivec", "perl", "php", "python", "ruby", "scala",
+              "shell", "sql", "xml", "yaml" };
    }
 
    private static void registerLanguage(String name, Map<String, Language> languages, Language language) {

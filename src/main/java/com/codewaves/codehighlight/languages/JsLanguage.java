@@ -33,7 +33,6 @@ public class JsLanguage implements LanguageBuilder {
             new Keyword("built_in", KEYWORDS_BUILTIN),
             new Keyword("literal", KEYWORDS_LITERAL)
       };
-      final Mode EXPRESSIONS;
       final Mode NUMBER = new Mode().className("number").relevance(0).variants(new Mode[] {
             new Mode().begin("\\b(0[bB][01]+)"),
             new Mode().begin("\\b(0[oO][0-7]+)"),

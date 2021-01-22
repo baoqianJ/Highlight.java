@@ -1,32 +1,17 @@
-[![Download](https://api.bintray.com/packages/codewaves/maven/codehighlight/images/download.svg?version=1.0.2) ](https://bintray.com/codewaves/maven/codehighlight/1.0.2/link)
-[![Build Status](https://travis-ci.org/Codewaves/Highlight.java.svg?branch=master)](https://travis-ci.org/Codewaves/Highlight.java)
-
 # Highlight.java
-Java port of popular Highlight.js library
+Java port of popular Highlight.js library, this library is based on [Highlight.js](https://github.com/isagalaev/highlight.js).
 
-## Download
+The current version builds upon previous work done at [Codewaves](https://github.com/Codewaves/Highlight.java).
 
-Available on JCenter, grab via Gradle:
-```groovy
-compile 'com.codewaves.codehighlight:codehighlight:1.0.2'
-```
-or Maven:
+## Maven
+
 ```xml
 <dependency>
-  <groupId>com.codewaves.codehighlight</groupId>
+  <groupId>com.deepoove.codehighlight</groupId>
   <artifactId>codehighlight</artifactId>
-  <version>1.0.2</version>
-  <type>pom</type>
+  <version>1.0.3</version>
 </dependency>
 ```
-
-## Usage
-
-1. Implement StyleRenderer interface. You can use HtmlRenderer as example. Style renderers 
-apply style to the code lexemes. In html output it can be <span> tags. In Android, *Span classes
-applied to SpannableString.
-2. Implement StyleRendererFactory interface to create renderer class instances.
-3. Create Highlighter and use highlightAuto or highlight method to do actual work.
 
 ## Basic example
 
@@ -53,7 +38,6 @@ for every thread.
 
 Highlight.java is written and maintained by Sergej Kravcenko.
 
-This library is based on Highlight.js (https://github.com/isagalaev/highlight.js).
 
     Copyright (c) 2017, Sergej Kravcenko
     Copyright (c) 2006, Ivan Sagalaev

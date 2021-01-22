@@ -73,8 +73,8 @@ public class Language extends Mode {
       if (mode.keywords != null) {
          final HashMap<String, Keyword> compiledKeywords = new HashMap<>();
          for (Keyword keywordGroup : mode.keywords) {
-            final String keywords = caseInsensitive ? keywordGroup.value.toLowerCase() : keywordGroup.value;
-            for (String keyword : keywords.split(" ")) {
+            for (String keyword : keywordGroup.valueArray) {
+                if (caseInsensitive) keyword = keyword.toLowerCase();
                final String[] pair = keyword.split("\\|");
                compiledKeywords.put(pair[0], new Keyword(pair[0], keywordGroup.className, pair.length > 1 ? Integer.valueOf(pair[1]) : 1));
             }
@@ -88,7 +88,7 @@ public class Language extends Mode {
       // Parent
       if (parent != null) {
          if (mode.beginKeywords != null) {
-            mode.begin = "\\b(" + strJoin(mode.beginKeywords[0].value.split(" "), "|") + ")\\b";
+            mode.begin = "\\b(" + strJoin(mode.beginKeywords[0].valueArray, "|") + ")\\b";
          }
          if (mode.begin == null) {
             mode.begin = "\\B|\\b";
