@@ -17,15 +17,15 @@ The current version builds upon previous work done at [Codewaves](https://github
 
 Basic example code that returns Highlight.js compatible output:
 ``` java
-public class RendererFactory implements StyleRendererFactory {
-   public StyleRenderer create(String languageName) {
+public class RendererFactory implements StyleRendererFactory<CharSequence> {
+   public StyleRenderer<CharSequence> create(String languageName) {
       return new HtmlRenderer("hljs-");
    }
 }
 ```
 ``` java
-final Highlighter highlighter = new Highlighter(new RendererFactory());
-final Highlighter.HighlightResult result = highlighter.highlightAuto(<source code>, null);
+final Highlighter<CharSequence> highlighter = new Highlighter<>(new RendererFactory());
+final Highlighter.HighlightResult<CharSequence> result = highlighter.highlightAuto(<source code>, null);
 final CharSequence styledCode = result.getResult():
 ```
 
