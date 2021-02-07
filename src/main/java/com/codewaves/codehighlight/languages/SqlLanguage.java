@@ -10,7 +10,7 @@ import com.codewaves.codehighlight.core.Mode;
 import com.codewaves.codehighlight.core.Regex;
 
 /**
- * Created by Sayi
+ * @author Sayi
  */
 public class SqlLanguage implements LanguageBuilder {
    private static String KEYWORDS_LITERAL = "true false unknown null";

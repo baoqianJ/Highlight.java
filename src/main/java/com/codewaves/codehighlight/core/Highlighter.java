@@ -16,7 +16,7 @@ import java.util.Map;
  * code language is known or use {@link Highlighter#highlightAuto(String, String[])}
  * to automatically detect code language.
  */
-public class Highlighter {
+public class Highlighter<E> {
    private static final Map<String, Language> mLanguageMap;
    private static final String[] mLanguages;
    static {
@@ -68,12 +68,12 @@ public class Highlighter {
    /**
     * Result of code syntax highlighting
     */
-   public static class HighlightResult {
+   public static class HighlightResult<R> {
       private int relevance;
       private String language;
-      private CharSequence result;
+      private R result;
 
-      HighlightResult(int relevance, String language, CharSequence result) {
+      HighlightResult(int relevance, String language, R result) {
          this.relevance = relevance;
          this.language = language;
          this.result = result;
@@ -99,19 +99,19 @@ public class Highlighter {
        *
        * @return highlighted code
        */
-      public CharSequence getResult() {
+      public R getResult() {
          return result;
       }
    }
 
-   private StyleRendererFactory mRendererFactory;
+   private StyleRendererFactory<E> mRendererFactory;
 
 
    /**
     *
     * @param factory style renderer factory
     */
-   public Highlighter(StyleRendererFactory factory) {
+   public Highlighter(StyleRendererFactory<E> factory) {
       mRendererFactory = factory;
    }
 
@@ -124,18 +124,19 @@ public class Highlighter {
     *
     * @return the given code highlight result
     */
-   public HighlightResult highlight(String languageName, String code) {
+   public HighlightResult<E> highlight(String languageName, String code) {
+       final StyleRenderer<E> renderer = mRendererFactory.create(languageName);
       // Find language by name
       final Language language = mLanguageMap.get(languageName);
       if (language == null) {
-         return new HighlightResult(0, null, code);
+         renderer.onPushOriginalSubLanguage(null, code);
+         return new HighlightResult<E>(0, null, renderer.getResult());
       }
 
       // Parse
-      final StyleRenderer renderer = mRendererFactory.create(languageName);
-      final HighlightParser parser = new HighlightParser(language, mRendererFactory, renderer);
+      final HighlightParser<E> parser = new HighlightParser<>(language, mRendererFactory, renderer);
       final int relevance = parser.highlight(code, false, null);
-      return new HighlightResult(relevance, languageName, renderer.getResult());
+      return new HighlightResult<E>(relevance, languageName, renderer.getResult());
    }
 
    /**
@@ -147,20 +148,20 @@ public class Highlighter {
     *
     * @return the given code highlight result
     */
-   public HighlightResult highlightAuto(String code, String[] languageSubset) {
+   public HighlightResult<E> highlightAuto(String code, String[] languageSubset) {
       final String[] languages = (languageSubset == null || languageSubset.length == 0) ? mLanguages : languageSubset;
 
       int bestRelevance = 0;
       String bestLanguageName = null;
-      CharSequence result = null;
+      E result = null;
       for (String languageName : languages) {
          final Language language = mLanguageMap.get(languageName);
          if (language == null) {
             continue;
          }
 
-         final StyleRenderer renderer = mRendererFactory.create(languageName);
-         final HighlightParser parser = new HighlightParser(language, mRendererFactory, renderer);
+         final StyleRenderer<E> renderer = mRendererFactory.create(languageName);
+         final HighlightParser<E> parser = new HighlightParser<>(language, mRendererFactory, renderer);
          final int relevance = parser.highlight(code, false, null);
          if (relevance > bestRelevance) {
             bestRelevance = relevance;
@@ -169,6 +170,6 @@ public class Highlighter {
          }
       }
 
-      return new HighlightResult(bestRelevance, bestLanguageName, result);
+      return new HighlightResult<E>(bestRelevance, bestLanguageName, result);
    }
 }

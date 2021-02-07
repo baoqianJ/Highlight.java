@@ -10,9 +10,10 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>com.deepoove.codehighlight</groupId>
+	<groupId>com.deepoove</groupId>
 	<artifactId>codehighlight</artifactId>
 	<version>1.0.3</version>
+	<packaging>jar</packaging>
 
 	<name>Highlight.java</name>
 	<description>Java port of popular Highlight.js library</description>
@@ -23,12 +24,19 @@
 			<name>BSD 3-Clause License</name>
 		</license>
 	</licenses>
+	
+	<developers>
+        <developer>
+            <name>Sayi</name>
+            <email>sayi90@163.com</email>
+            <url>https://github.com/Sayi</url>
+        </developer>
+    </developers>
 
 	<scm>
 		<connection>scm:git:git@github.com:Sayi/Highlight.java.git</connection>
 		<developerConnection>scm:git:git@github.com:Sayi/Highlight.java.git</developerConnection>
 		<url>https://github.com/Sayi/highlight.java.git</url>
-		<tag>HEAD</tag>
 	</scm>
 
 	<properties>

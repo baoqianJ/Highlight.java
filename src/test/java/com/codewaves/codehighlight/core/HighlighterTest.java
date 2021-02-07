@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 public class HighlighterTest {
    @Test
    public void highlight() throws Exception {
-      Highlighter highlighter = new Highlighter(new TestRendererFactory());
-      Highlighter.HighlightResult result = highlighter.highlight("java", "import test;");
+      Highlighter<CharSequence> highlighter = new Highlighter<>(new TestRendererFactory());
+      Highlighter.HighlightResult<CharSequence> result = highlighter.highlight("java", "import test;");
 
       assertTrue(result.getResult() != null);
    }
@@ -35,8 +35,8 @@ public class HighlighterTest {
                for (File example : lang.listFiles()) {
                   String content = new String(Files.readAllBytes(example.toPath()));
 
-                  Highlighter highlighter = new Highlighter(new TestRendererFactory());
-                  Highlighter.HighlightResult result = highlighter.highlightAuto(content, null);
+                  Highlighter<CharSequence> highlighter = new Highlighter<>(new TestRendererFactory());
+                  Highlighter.HighlightResult<CharSequence> result = highlighter.highlightAuto(content, null);
                   assertEquals(name, result.getLanguage());
                }
             }
@@ -62,8 +62,8 @@ public class HighlighterTest {
                      String content = new String(Files.readAllBytes(Paths.get(contentName)));
                      String expect = new String(Files.readAllBytes(Paths.get(expectName)));
 
-                     Highlighter highlighter = new Highlighter(new TestRendererFactory());
-                     Highlighter.HighlightResult result = highlighter.highlight(name, content);
+                     Highlighter<CharSequence> highlighter = new Highlighter<>(new TestRendererFactory());
+                     Highlighter.HighlightResult<CharSequence> result = highlighter.highlight(name, content);
                      assertEquals(expect.trim(), result.getResult().toString().trim());
                   }
                }

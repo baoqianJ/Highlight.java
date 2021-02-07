@@ -10,10 +10,10 @@ import java.util.regex.Pattern;
  * Copyright (c) 2017 Sergej Kravcenko
  */
 
-class HighlightParser {
+class HighlightParser<E> {
    private Language mLanguage;
-   private StyleRendererFactory mRendererFactory;
-   private StyleRenderer mBlockRenderer;
+   private StyleRendererFactory<E> mRendererFactory;
+   private StyleRenderer<E> mBlockRenderer;
 
    private String mModeBuffer;
    private ParentWrapper mTop;
@@ -31,7 +31,7 @@ class HighlightParser {
       }
    }
 
-   HighlightParser(Language language, StyleRendererFactory rendererFactory, StyleRenderer renderer) {
+   HighlightParser(Language language, StyleRendererFactory<E> rendererFactory, StyleRenderer<E> renderer) {
       mLanguage = language;
       mRendererFactory = rendererFactory;
       mBlockRenderer = renderer;
@@ -126,26 +126,26 @@ class HighlightParser {
    private void processSubLanguage() {
       final boolean explicit = mTop.mode.subLanguage != null;
       int relevance;
-      CharSequence resultCode;
+      E resultCode;
       String resultLanguage;
 
       if (explicit) {
          final Language language = Highlighter.findLanguage(mTop.mode.subLanguage);
          if (language == null) {
-            mBlockRenderer.onPushSubLanguage(null, mModeBuffer);
+            mBlockRenderer.onPushOriginalSubLanguage(null, mModeBuffer);
             return;
          }
 
-         final StyleRenderer renderer = mRendererFactory.create(mTop.mode.subLanguage);
-         final HighlightParser parser = new HighlightParser(language, mRendererFactory, renderer);
+         final StyleRenderer<E> renderer = mRendererFactory.create(mTop.mode.subLanguage);
+         final HighlightParser<E> parser = new HighlightParser<>(language, mRendererFactory, renderer);
          relevance = parser.highlight(mModeBuffer, true, mContinuations.get(mTop.mode.subLanguage));
          resultCode = renderer.getResult();
          resultLanguage = mTop.mode.subLanguage;
          mContinuations.put(mTop.mode.subLanguage, parser.mTop);
       }
       else {
-         final Highlighter highlighter = new Highlighter(mRendererFactory);
-         final Highlighter.HighlightResult result = highlighter.highlightAuto(mModeBuffer, mTop.mode.subLanguages);
+         final Highlighter<E> highlighter = new Highlighter<>(mRendererFactory);
+         final Highlighter.HighlightResult<E> result = highlighter.highlightAuto(mModeBuffer, mTop.mode.subLanguages);
          relevance = result.getRelevance();
          resultCode = result.getResult();
          resultLanguage = result.getLanguage();
@@ -277,7 +277,7 @@ class HighlightParser {
          mBlockRenderer.onFinish();
       }
       catch (Exception e) {
-         mBlockRenderer.onAbort(code);
+         mBlockRenderer.onAbort(code, e);
          mRelevance = 0;
       }
 

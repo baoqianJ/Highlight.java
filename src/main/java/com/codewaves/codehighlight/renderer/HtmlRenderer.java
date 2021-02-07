@@ -10,7 +10,7 @@ import com.codewaves.codehighlight.core.StyleRenderer;
 /**
  * Basic HTML renderer similar to Highlight.js
  */
-public class HtmlRenderer implements StyleRenderer {
+public class HtmlRenderer implements StyleRenderer<CharSequence> {
    private String mPrefix;
    private String mResult;
 
@@ -46,9 +46,14 @@ public class HtmlRenderer implements StyleRenderer {
    public void onPushSubLanguage(String name, CharSequence code) {
       mResult += "<span class=\"" + name + "\">" + code + "</span>";
    }
+   @Override
+   public void onPushOriginalSubLanguage(String name, CharSequence code) {
+       if (null == name) mResult += code;
+       else mResult += "<span class=\"" + name + "\">" + code + "</span>";
+   }
 
    @Override
-   public void onAbort(CharSequence code) {
+   public void onAbort(CharSequence code, Exception e) {
       mResult = code.toString();
    }
 

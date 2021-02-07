@@ -7,8 +7,8 @@ import com.codewaves.codehighlight.renderer.HtmlRenderer;
  * Copyright (c) 2017 Sergej Kravcenko
  */
 
-public class TestRendererFactory implements StyleRendererFactory {
-   public StyleRenderer create(String languageName) {
+public class TestRendererFactory implements StyleRendererFactory<CharSequence> {
+   public StyleRenderer<CharSequence> create(String languageName) {
       return new HtmlRenderer("hljs-");
    }
 }

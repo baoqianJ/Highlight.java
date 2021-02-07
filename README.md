@@ -7,7 +7,7 @@ The current version builds upon previous work done at [Codewaves](https://github
 
 ```xml
 <dependency>
-  <groupId>com.deepoove.codehighlight</groupId>
+  <groupId>com.deepoove</groupId>
   <artifactId>codehighlight</artifactId>
   <version>1.0.3</version>
 </dependency>

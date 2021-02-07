@@ -4,7 +4,7 @@ import com.codewaves.codehighlight.core.Language;
 import com.codewaves.codehighlight.core.Mode;
 
 /**
- * Created by Sayi
+ * @author Sayi
  * 
  */
 public class MarkdownLanguage implements LanguageBuilder {
